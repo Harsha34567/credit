@@ -1,0 +1,29 @@
+# Python virtual environment
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# data
+data/raw/
+data/processed/
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+
+# Logs and runtime
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE settings
+.vscode/
