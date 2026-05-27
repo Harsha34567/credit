@@ -21,3 +21,15 @@ class ProjectConfig:
     notebook_dir: Path = project_root / "notebooks"
     random_seed: int = 42
     log_file: Path = logs_dir / "project.log"
+    kaggle_dataset_name: str = "megancrenshaw/home-credit-default-risk"
+    kaggle_raw_filename: str = "application_train.csv"
+    target_column: str = "TARGET"
+    streamlit_port: int = 8501
+
+    @property
+    def raw_dataset_path(self) -> Path:
+        return self.raw_data_dir / self.kaggle_raw_filename
+
+    @property
+    def model_artifact_path(self) -> Path:
+        return self.models_dir / "baseline_model.joblib"

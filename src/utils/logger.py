@@ -13,7 +13,7 @@ def initialize_logger(log_file: Path) -> logging.Logger:
 
     if not logger.handlers:
         formatter = logging.Formatter(
-            "%Y-%m-%d %H:%M:%S - %(name)s - %(levelname)s - %(message)s"
+            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
         )
 
         console_handler = logging.StreamHandler()

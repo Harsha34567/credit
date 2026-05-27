@@ -25,10 +25,48 @@ A professional machine learning system to predict creditworthiness using financi
    ```powershell
    python -m pip install -r requirements.txt
    ```
-3. Run the starter script:
+3. Install pre-commit hooks:
+   ```powershell
+   .\.venv\Scripts\python.exe -m pre_commit install
+   ```
+4. Run the starter script:
    ```powershell
    python main.py
    ```
+
+## Dataset
+
+The project expects Kaggle credentials stored in a `.env` file. Use `.env.example` as a template and never commit your real credentials.
+
+```powershell
+copy .env.example .env
+# Then edit .env with your Kaggle username and API key.
+```
+
+The utility script in `src/utils/kaggle_utils.py` can download and unzip the dataset automatically.
+
+## Training Pipeline
+
+Use the training runner to download data, preprocess it, train candidate models, and persist the best model:
+
+```powershell
+python -m src.training.run_training --force-download
+```
+
+If you want to keep the raw data but skip writing the processed CSV, add:
+
+```powershell
+python -m src.training.run_training --skip-save-processed
+```
+
+## GitHub Remote
+
+If you want to connect this repository to GitHub, authenticate using GitHub CLI and create a remote:
+
+```powershell
+"C:\Program Files\GitHub CLI\gh.exe" auth login --hostname github.com --web
+"C:\Program Files\GitHub CLI\gh.exe" repo create credit-scoring-model --public --source . --remote origin --push
+```
 
 ## Goals
 
