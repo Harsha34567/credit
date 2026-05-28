@@ -26,16 +26,29 @@ def format_input_row(values: dict) -> list:
     ]
 
 
+def build_applicant_features(values: dict) -> dict:
+    """Prepare the applicant feature dictionary for display and feature engineering."""
+    return {
+        "income": [values["income"]],
+        "debt": [values["debt"]],
+        "loan_amount": [values["loan_amount"]],
+        "employment_length": [values["employment_length"]],
+        "credit_limit": [values["credit_limit"]],
+        "credit_balance": [values["credit_balance"]],
+    }
+
+
 def main() -> None:
     config = ProjectConfig()
     model_path = config.model_artifact_path
 
-    st.set_page_config(page_title="Credit Scoring Model", layout="wide")
-    st.title("Credit Scoring Model")
+    st.set_page_config(page_title="Credit Score", layout="wide")
+    st.title("Credit Score")
     st.markdown("Use this dashboard to evaluate creditworthiness using financial ratios and model confidence.")
 
     st.sidebar.header("Applicant Profile")
     user_data = {
+        "name": st.sidebar.text_input("Name", value=""),
         "income": st.sidebar.number_input("Annual Income", min_value=0.0, value=50000.0, step=1000.0),
         "debt": st.sidebar.number_input("Total Debt", min_value=0.0, value=10000.0, step=500.0),
         "loan_amount": st.sidebar.number_input("Loan Amount", min_value=0.0, value=15000.0, step=500.0),
@@ -54,22 +67,27 @@ def main() -> None:
         prediction = model.predict([feature_row])[0]
         score = float(model.predict_proba([feature_row])[0][1])
 
+        st.session_state["applicant_profile"] = user_data
+        applicant_name = user_data["name"].strip() or "Applicant"
+
+        st.write(f"### Applicant: {applicant_name}")
         st.metric("Creditworthy", "Yes" if prediction == 1 else "No", delta=f"Confidence: {score:.1%}")
+
         st.write("### Engineered Features")
-        display_data = build_feature_set(
-            st.session_state.get("raw", None) or {
-                "income": [user_data["income"]],
-                "debt": [user_data["debt"]],
-                "loan_amount": [user_data["loan_amount"]],
-                "employment_length": [user_data["employment_length"]],
-                "credit_limit": [user_data["credit_limit"]],
-                "credit_balance": [user_data["credit_balance"]],
-            }
-        )
+        display_data = build_feature_set(build_applicant_features(user_data))
         st.dataframe(display_data)
 
-        st.write("### Model output")
-        st.json({"prediction": int(prediction), "confidence": score})
+    if "applicant_profile" in st.session_state:
+        st.sidebar.markdown("---")
+        st.sidebar.subheader("Saved Applicant")
+        saved = st.session_state["applicant_profile"]
+        st.sidebar.write(f"**Name:** {saved.get('name', 'N/A')}")
+        st.sidebar.write(f"**Income:** ${saved.get('income', 0):,.2f}")
+        st.sidebar.write(f"**Debt:** ${saved.get('debt', 0):,.2f}")
+        st.sidebar.write(f"**Loan Amount:** ${saved.get('loan_amount', 0):,.2f}")
+        st.sidebar.write(f"**Employment Length:** {saved.get('employment_length', 0)} years")
+        st.sidebar.write(f"**Credit Limit:** ${saved.get('credit_limit', 0):,.2f}")
+        st.sidebar.write(f"**Credit Balance:** ${saved.get('credit_balance', 0):,.2f}")
 
 
 if __name__ == "__main__":
