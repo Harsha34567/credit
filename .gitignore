@@ -1,32 +1,44 @@
-# Python virtual environment
+# Virtual Environment
 .venv/
+
+# Python cache
 __pycache__/
-*.py[cod]
+*.pyc
 *.pyo
 *.pyd
 
-# Jupyter Notebooks
-.ipynb_checkpoints
+# Jupyter
+.ipynb_checkpoints/
 
 # Environment variables
 .env
 
-# data
+# Datasets
+data/
+datasets/
+
+# Processed data
 data/raw/
 data/processed/
 
-# Python packaging
+# ML Models
+models/
+*.pkl
+*.joblib
+*.h5
+
+# Logs
+logs/
+*.log
+
+# VS Code
+.vscode/
+
+# Build files
 build/
 dist/
 *.egg-info/
 
-# Logs and runtime
-logs/
-*.log
-
 # OS files
 .DS_Store
 Thumbs.db
-
-# IDE settings
-.vscode/
