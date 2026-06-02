@@ -26,3 +26,7 @@
 2026-05-27 23:35:30,446 - credit_scoring - INFO - Best model 'lightgbm' saved as C:\Users\badah\OneDrive\Pictures\Documents\credit score model\models\baseline_model.joblib.
 2026-05-27 23:52:16,167 - credit_scoring - INFO - Credit scoring model project initialized successfully.
 2026-05-27 23:54:49,736 - credit_scoring - INFO - Credit scoring model project initialized successfully.
+2026-05-28 12:11:35,809 - credit_scoring - INFO - Credit scoring model project initialized successfully.
+2026-05-28 12:14:15,584 - credit_scoring - INFO - Starting training pipeline.
+2026-05-28 12:14:29,616 - credit_scoring - INFO - Saved processed training data to C:\Users\badah\OneDrive\Pictures\Documents\credit score model\data\processed\processed_training.csv.
+2026-05-28 12:14:29,651 - credit_scoring - INFO - Inferred 113 numeric and 16 categorical features.
